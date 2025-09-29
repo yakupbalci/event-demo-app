@@ -13,7 +13,6 @@
     </div>
   </div>
 
-  <!-- Filter Section -->
   <mat-card class="filter-card">
     <mat-card-content>
       <div class="filter-row">
@@ -43,7 +42,6 @@
     </mat-card-content>
   </mat-card>
 
-  <!-- Events List -->
   <div class="events-list">
     @for(event of filteredEvents(); track event.id){
     <mat-card class="event-row-card" (click)="navigateToEventDetail(event.id)">

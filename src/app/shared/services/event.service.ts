@@ -46,7 +46,6 @@ export class EventService {
     if (persistedEvents.length > 0) {
       this.eventsSignal.set(persistedEvents);
     } else {
-      // Mock-Daten laden wenn keine persistierten Daten vorhanden
       this.eventsSignal.set(this.getMockEvents());
     }
 
