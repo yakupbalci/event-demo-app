@@ -4,7 +4,7 @@ Event-Verwaltungssystem mit Angular 20 und Angular Material.
 
 ## Überblick
 
-Verwaltung von Veranstaltungen mit:
+### Features
 
 - Eventliste
 - Filter nach Status
@@ -12,7 +12,7 @@ Verwaltung von Veranstaltungen mit:
 - Event Detailübersicht
 - Simulierter Service mit Mock-Daten
 
-Bonus:
+### Bonus
 
 - Datenpersistenz
 - (Suche nach Titel oder Ort)
