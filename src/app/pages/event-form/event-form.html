@@ -1,0 +1,108 @@
+<div class="event-form-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title> Neues Event </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Titel</mat-label>
+            <input matInput formControlName="title" placeholder="Titel des Events" />
+            @if(eventForm.get('title')?.hasError('required')){
+            <mat-error> Titel ist erforderlich </mat-error>
+            }
+            <!--------------------------------->
+            @if(eventForm.get('title')?.hasError('minlength')){
+            <mat-error>
+              Titel muss mindestens
+              {{eventForm.get('title')?.errors?.['minlength']?.requiredLength}}
+              Zeichen lang sein
+            </mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Datum</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="date" />
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+
+            @if(eventForm.get('date')?.hasError('required')){
+            <mat-error> Datum ist erforderlich </mat-error>
+            }
+            <!-- ----------------------------- -->
+            @if(eventForm.get('date')?.hasError('futureDate')){
+            <mat-error> Datum muss in der Zukunft liegen </mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option [value]="eventStatusEnum.PLANNED">{{
+                eventStatusEnum.PLANNED
+              }}</mat-option>
+              <mat-option [value]="eventStatusEnum.CANCELLED">{{
+                eventStatusEnum.CANCELLED
+              }}</mat-option>
+              <mat-option [value]="eventStatusEnum.COMPLETED">{{
+                eventStatusEnum.COMPLETED
+              }}</mat-option>
+            </mat-select>
+            @if(eventForm.get('status')?.hasError('required')){
+            <mat-error> Status ist erforderlich </mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Ort</mat-label>
+            <input matInput formControlName="location" placeholder="Veranstaltungsort" />
+            @if(eventForm.get('location')?.hasError('required')){
+            <mat-error> Ort ist erforderlich </mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Max. Teilnehmer</mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="maxParticipants"
+              placeholder="Maximale Teilnehmerzahl"
+            />
+            @if(eventForm.get('maxParticipants')?.hasError('max')){
+            <mat-error> Mindestens 1 Teilnehmer </mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Beschreibung</mat-label>
+            <textarea
+              matInput
+              formControlName="description"
+              placeholder="Beschreibung des Events"
+              rows="4"
+            ></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="form-actions">
+          <button mat-raised-button (click)="onCancel()">Abbrechen</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="eventForm.invalid">
+            Erstellen
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

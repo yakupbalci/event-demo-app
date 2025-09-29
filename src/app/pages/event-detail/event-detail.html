@@ -1,0 +1,66 @@
+<div class="event-detail-container">
+  @if (event(); as eventData) {
+  <div class="header-actions">
+    <button mat-raised-button (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+      Zurück zur Liste
+    </button>
+  </div>
+
+  <mat-card class="event-detail-card">
+    <mat-card-header>
+      <mat-card-title>{{ eventData.title }}</mat-card-title>
+      <mat-card-subtitle>
+        <mat-chip class="status-{{ eventData.status | eventStatusClass }}">
+          {{ eventData.status }}
+        </mat-chip>
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="detail-section">
+        <div class="detail-row">
+          <mat-icon>event</mat-icon>
+          <div>
+            <strong>Datum:</strong>
+            <span>{{ eventData.date | date : 'fullDate' : 'de' }}</span>
+          </div>
+        </div>
+
+        <div class="detail-row">
+          <mat-icon>location_on</mat-icon>
+          <div>
+            <strong>Ort:</strong>
+            <span>{{ eventData.location }}</span>
+          </div>
+        </div>
+
+        @if(eventData.maxParticipants) {
+        <div class="detail-row">
+          <mat-icon>people</mat-icon>
+          <div>
+            <strong>Max. Teilnehmer:</strong>
+            <span>{{ eventData.maxParticipants }}</span>
+          </div>
+        </div>
+        } @if(eventData.description) {
+        <div class="detail-row">
+          <mat-icon>description</mat-icon>
+          <div>
+            <strong>Beschreibung:</strong>
+            <p>{{ eventData.description }}</p>
+          </div>
+        </div>
+        }
+      </div>
+    </mat-card-content>
+  </mat-card>
+  } @else {
+  <mat-card>
+    <mat-card-content>
+      <p>Event nicht gefunden.</p>
+      <button mat-raised-button (click)="goBack()">Zurück zur Liste</button>
+    </mat-card-content>
+  </mat-card>
+  }
+</div>

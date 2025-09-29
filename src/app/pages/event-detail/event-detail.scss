@@ -1,0 +1,64 @@
+.event-detail-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.header-actions {
+  margin-bottom: 20px;
+}
+
+.event-detail-card {
+  margin-bottom: 20px;
+}
+
+.detail-section {
+  margin: 20px 0;
+}
+
+.detail-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+
+.detail-row mat-icon {
+  color: #666;
+  margin-top: 2px;
+}
+
+.detail-row div {
+  flex: 1;
+}
+
+.detail-row strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.detail-row p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+::ng-deep .mat-mdc-chip.status-planned {
+  background-color: #e3f2fd !important;
+  color: #1976d2 !important;
+}
+
+::ng-deep .mat-mdc-chip.status-cancelled {
+  background-color: #ffebee !important;
+  color: #d32f2f !important;
+}
+
+::ng-deep .mat-mdc-chip.status-completed {
+  background-color: #e8f5e8 !important;
+  color: #388e3c !important;
+}
+
+mat-card-actions {
+  display: flex;
+  gap: 12px;
+}

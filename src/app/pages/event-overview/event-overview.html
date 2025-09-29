@@ -1,0 +1,84 @@
+<div class="event-list-container">
+  <div class="header-section">
+    <h1>Eventverwaltung</h1>
+    <div>
+      <button mat-button (click)="resetEvents()">
+        <mat-icon>replay</mat-icon>
+        Events zurücksetzen
+      </button>
+      <button mat-raised-button color="primary" (click)="openEventFormModal()">
+        <mat-icon>add</mat-icon>
+        Neues Event
+      </button>
+    </div>
+  </div>
+
+  <!-- Filter Section -->
+  <mat-card class="filter-card">
+    <mat-card-content>
+      <div class="filter-row">
+        <mat-form-field>
+          <mat-label>Nach Status filtern</mat-label>
+          <mat-select
+            [value]="currentFilters().status"
+            (selectionChange)="updateStatusFilter($event.value)"
+          >
+            <mat-option [value]="null">Alle Status</mat-option>
+            <mat-option [value]="EventStatus.PLANNED">{{ EventStatus.PLANNED }}</mat-option>
+            <mat-option [value]="EventStatus.CANCELLED">{{ EventStatus.CANCELLED }}</mat-option>
+            <mat-option [value]="EventStatus.COMPLETED">{{ EventStatus.COMPLETED }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Suchen...</mat-label>
+          <input
+            matInput
+            [(ngModel)]="currentFilters().searchTerm"
+            (input)="updateSearchTerm($event.target.value)"
+            placeholder="Titel oder Ort eingeben"
+          />
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Events List -->
+  <div class="events-list">
+    @for(event of filteredEvents(); track event.id){
+    <mat-card class="event-row-card" (click)="navigateToEventDetail(event.id)">
+      <mat-card-content class="event-row-content">
+        <div class="event-main-info">
+          <div class="event-title">{{ event.title }}</div>
+          <div class="event-subtitle">{{ event.date | date : 'dd.MM.yyyy' }}</div>
+        </div>
+
+        <div class="event-location">
+          <mat-icon class="location-icon">location_on</mat-icon>
+          <span>{{ event.location }}</span>
+        </div>
+
+        <div class="event-status">
+          <mat-chip [class]="'status-' + (event.status | eventStatusClass)">
+            {{ event.status }}
+          </mat-chip>
+        </div>
+
+        <div class="event-actions">
+          <button mat-icon-button (click)="navigateToEventDetail(event.id)" matTooltip="Details">
+            <mat-icon>visibility</mat-icon>
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    }@empty{
+    <div class="no-events">
+      <mat-card>
+        <mat-card-content>
+          <p>Keine Events gefunden.</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,154 @@
+.event-list-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header-section h1 {
+  margin: 0;
+  color: #333;
+}
+
+.filter-card {
+  margin-bottom: 20px;
+}
+
+.filter-row {
+  display: flex;
+  gap: 20px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.filter-row mat-form-field {
+  min-width: 200px;
+}
+
+.events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.event-row-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.event-row-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.event-row-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px !important;
+}
+
+.event-main-info {
+  flex: 2;
+  min-width: 200px;
+}
+
+.event-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.event-subtitle {
+  font-size: 14px;
+  color: #666;
+}
+
+.event-location {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #666;
+  min-width: 150px;
+}
+
+.location-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.event-status {
+  flex: 1;
+  min-width: 100px;
+}
+
+.event-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.no-events {
+  text-align: center;
+}
+
+.no-events p {
+  color: #666;
+  margin: 0;
+}
+
+mat-chip-set {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .event-row-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .event-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .header-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .filter-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-row mat-form-field {
+    min-width: unset;
+  }
+}
+
+::ng-deep .mat-mdc-chip.status-planned {
+  background-color: #e3f2fd !important;
+  color: #1976d2 !important;
+}
+
+::ng-deep .mat-mdc-chip.status-cancelled {
+  background-color: #ffebee !important;
+  color: #d32f2f !important;
+}
+
+::ng-deep .mat-mdc-chip.status-completed {
+  background-color: #e8f5e8 !important;
+  color: #388e3c !important;
+}
