@@ -5,6 +5,7 @@ import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,8 +15,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { EventStatus } from '../../shared/models/Event';
-import { EventService } from '../../shared/services/event.service';
+import { EventStatus } from '../../../shared/models/Event';
+import { EventService } from '../../../shared/services/event.service';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -46,27 +47,6 @@ export class EventFormComponent {
     this.eventForm = this.createForm();
   }
 
-  private createForm(): FormGroup {
-    return this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(3)]],
-      date: ['', [Validators.required, this.futureDateValidator]],
-      location: ['', [Validators.required]],
-      status: [EventStatus.PLANNED, [Validators.required]],
-      description: [''],
-      maxParticipants: ['', [Validators.min(1)]],
-    });
-  }
-
-  private futureDateValidator(control: FormControl) {
-    if (!control.value) return null;
-
-    const selectedDate = new Date(control.value);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    return selectedDate > today ? null : { futureDate: true };
-  }
-
   onSubmit(): void {
     if (this.eventForm.valid) {
       const formValue = this.eventForm.value;
@@ -87,5 +67,26 @@ export class EventFormComponent {
   onCancel(): void {
     this.eventForm.reset();
     this.dialogRef.close();
+  }
+
+  private createForm(): FormGroup {
+    return this.fb.group({
+      title: ['', [Validators.required, Validators.minLength(3)]],
+      date: ['', [Validators.required, this.futureDateValidator]],
+      location: ['', [Validators.required]],
+      status: [EventStatus.PLANNED, [Validators.required]],
+      description: [''],
+      maxParticipants: ['', [Validators.min(1)]],
+    });
+  }
+
+  private futureDateValidator(control: FormControl): ValidationErrors | null {
+    if (!control.value) return null;
+
+    const selectedDate = new Date(control.value);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    return selectedDate > today ? null : { futureDate: true };
   }
 }

@@ -14,8 +14,8 @@ Event-Verwaltungssystem mit Angular 20 und Angular Material.
 
 ### Bonus
 
-- Datenpersistenz
-- (Suche nach Titel oder Ort)
+- Datenpersistenz via Localstorage
+- Suche nach Titel oder Ort
 
 ## Setup
 
