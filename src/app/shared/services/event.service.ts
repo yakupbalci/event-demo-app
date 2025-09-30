@@ -39,6 +39,33 @@ export class EventService {
     this.loadPersistedData();
   }
 
+  getEventById(id: string): Signal<EventData | undefined> {
+    return computed((): EventData | undefined =>
+      this.eventsSignal().find((event: EventData) => event.id === id)
+    );
+  }
+
+  addEvent(eventData: Omit<EventData, 'id'>): void {
+    const newEvent: EventData = {
+      ...eventData,
+      id: this.generateId(),
+    };
+
+    this.eventsSignal.update((events: EventData[]) => [...events, newEvent]);
+    this.persistenceService.saveEvents(this.eventsSignal());
+  }
+
+  setFilters(filters: EventFilter): void {
+    this.filtersSignal.set(filters);
+    this.persistenceService.saveFilterState(filters);
+  }
+
+  clearAllData(): void {
+    this.persistenceService.clearStorage();
+    this.eventsSignal.set([]);
+    this.filtersSignal.set({});
+  }
+
   private loadPersistedData(): void {
     const persistedEvents = this.persistenceService.loadEvents();
     const persistedFilters = this.persistenceService.loadFilterState();
@@ -91,33 +118,6 @@ export class EventService {
         maxParticipants: 100,
       },
     ];
-  }
-
-  getEventById(id: string): Signal<EventData | undefined> {
-    return computed((): EventData | undefined =>
-      this.eventsSignal().find((event: EventData) => event.id === id)
-    );
-  }
-
-  addEvent(eventData: Omit<EventData, 'id'>): void {
-    const newEvent: EventData = {
-      ...eventData,
-      id: this.generateId(),
-    };
-
-    this.eventsSignal.update((events: EventData[]) => [...events, newEvent]);
-    this.persistenceService.saveEvents(this.eventsSignal());
-  }
-
-  setFilters(filters: EventFilter): void {
-    this.filtersSignal.set(filters);
-    this.persistenceService.saveFilterState(filters);
-  }
-
-  clearAllData(): void {
-    this.persistenceService.clearStorage();
-    this.eventsSignal.set([]);
-    this.filtersSignal.set({});
   }
 
   private generateId(): string {

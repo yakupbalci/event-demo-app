@@ -14,7 +14,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { EventFormComponent } from '../event-form/event-form';
+import { EventFormComponent } from './event-form/event-form';
 import { EventStatusClassPipe } from '../../shared/pipes/event-status-class.pipe';
 import { EventPersistenceService } from '../../shared/services/event-persistence.service';
 
@@ -89,5 +89,6 @@ export class EventOverviewComponent {
 
   resetEvents(): void {
     this.eventPersistenceService.clearStorage();
+    window.location.reload();
   }
 }
